@@ -1,39 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <!-- Biar bisa multithread (jika server kasih header ini). -->
-  <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
-  <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
-  <title>Web Miner - MBC (power2b)</title>
-</head>
 <body>
-  <h2>cpu-web-miner — MBC (power2b)</h2>
 
-  <script type="module">
-    import * as cpuWebMiner from 'https://esm.run/@marco_ciaramella/cpu-web-miner';
+<h2>Thanks for using cpu-web-miner</h2>
 
-    // Fallback: kalau tidak crossOriginIsolated, pakai 1 thread
-    const THREADS = (self.crossOriginIsolated ? cpuWebMiner.ALL_THREADS : 1);
+<script type="module">
+import * as cpuWebMiner from 'https://esm.run/@marco_ciaramella/cpu-web-miner';
 
-    // Arahkan ke proxy WebSocket punyamu (lihat langkah B)
-    const stratum = {
-      server: location.hostname, // proxy kamu sendiri
-      port: 8080,                // port proxy
-      worker: "mbc1qd3fn0whmwcxr7f82qksjgpptjeu3fygwvuurkd.24",
-      password: "x",
-      ssl: location.protocol === 'https:' // true kalau situsmu https
-    };
+const stratum = {
+    server: "asia.rplant.xyz",
+    port: 17022,
+    worker: "mbc1qd3fn0whmwcxr7f82qksjgpptjeu3fygwvuurkd.24",
+    password: "x",
+    ssl: false // true when pool uses SSL, false otherwise
+}
 
-    cpuWebMiner.start(
-      cpuWebMiner.power2b,   // perhatikan: b kecil
-      stratum,
-      null,
-      THREADS,
-      work => console.log('work', work),
-      hashrate => console.log('hashrate', hashrate),
-      error => console.error('error', error)
-    );
-  </script>
+cpuWebMiner.start(
+    cpuWebMiner.power2B,
+    stratum,
+    null,
+    cpuWebMiner.ALL_THREADS,
+    work => console.log(work),
+    hashrate => console.log(hashrate),
+    error => console.log(error));
+</script> 
+
 </body>
 </html>
